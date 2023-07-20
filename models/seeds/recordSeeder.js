@@ -8,7 +8,13 @@ if (process.env.NODE_ENV !== 'production') {
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
-
+const CATEGORY_IMAGE = {
+  家居物業: "fa-solid fa-house",
+  交通出行: "fa-solid fa-van-shuttle",
+  休閒娛樂: "fa-solid fa-face-grin-beam",
+  餐飲食品: "fa-solid fa-utensils",
+  其他: "fa-solid fa-pen"
+}
 
 
 const db = mongoose.connection
@@ -24,31 +30,36 @@ db.once('open', async () => {
         name: '午餐',
         date: '2019-4-23',
         amount: 60,
-        categoryId: (await Category.findOne({ name: '餐飲食品' }))._id
+        categoryId: (await Category.findOne({ name: '餐飲食品' }))._id,
+        categoryImage: CATEGORY_IMAGE.餐飲食品
       },
       {
         name: '晚餐',
         date: '2019-4-23',
         amount: 60,
-        categoryId: (await Category.findOne({ name: '餐飲食品' }))._id
+        categoryId: (await Category.findOne({ name: '餐飲食品' }))._id,
+        categoryImage: CATEGORY_IMAGE.餐飲食品
       },
       {
         name: '捷運',
         date: '2019-4-23',
         amount: 120,
-        categoryId: (await Category.findOne({ name: '交通出行' }))._id
+        categoryId: (await Category.findOne({ name: '交通出行' }))._id,
+        categoryImage: CATEGORY_IMAGE.交通出行
       },
       {
         name: '電影：驚奇隊長',
         date: '2019-4-23',
         amount: 220,
-        categoryId: (await Category.findOne({ name: '休閒娛樂' }))._id
+        categoryId: (await Category.findOne({ name: '休閒娛樂' }))._id,
+        categoryImage: CATEGORY_IMAGE.休閒娛樂
       },
       {
         name: '租金',
         date: '2015-4-01',
         amount: 25000,
-        categoryId: (await Category.findOne({ name: '家居物業' }))._id
+        categoryId: (await Category.findOne({ name: '家居物業' }))._id,
+        categoryImage: CATEGORY_IMAGE.家居物業
       }
     ]
     const categories = Category.find()

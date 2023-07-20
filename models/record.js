@@ -22,6 +22,10 @@ const recordSchema = new Schema({
     ref: 'Category',
     index: true,
     required: true
+  },
+  categoryImage: {
+    type: String,
+    required: true
   }
 })
 
