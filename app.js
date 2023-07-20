@@ -66,6 +66,33 @@ app.post('/records', async (req, res) => {
   }
 })
 
+app.get('/records/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Record.findById(id)
+    .lean()
+    .then((record) => res.render('edit', { record }))
+    .catch((err) => console.log(err))
+})
+
+app.post('/records/:id/edit', async (req, res) => {
+  try{
+    const id = req.params.id
+    const categoryId = (await Category.findOne({ name: req.body.category }))._id
+    await Record.findById(id)
+      .then((record) => {
+        record.name = req.body.name
+        record.date = req.body.date
+        record.amount = req.body.amount
+        record.categoryId = categoryId
+        record.categoryImage = CATEGORY_IMAGE[req.body.category]
+        return record.save()
+      })
+      .then(() => res.redirect('/'))
+  } catch(error) {
+    console.log(error)
+  }
+})
+
 app.listen(3000, () => {
   console.log('App is running on http://localhost:3000np')
 })
