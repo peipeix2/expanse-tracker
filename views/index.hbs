@@ -1,1 +1,13 @@
-<p>This is index</p>
+<ul>
+  {{#each records}}
+  <li>
+    {{this.name}}
+  </li>
+  <li>
+    {{this.date}}
+  </li>
+  <li>
+    {{this.amount}}
+  </li>
+  {{/each}}
+</ul>

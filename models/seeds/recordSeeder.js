@@ -43,6 +43,12 @@ db.once('open', async () => {
         date: '2019-4-23',
         amount: 220,
         categoryId: (await Category.findOne({ name: '休閒娛樂' }))._id
+      },
+      {
+        name: '租金',
+        date: '2015-4-01',
+        amount: 25000,
+        categoryId: (await Category.findOne({ name: '家居物業' }))._id
       }
     ]
     const categories = Category.find()

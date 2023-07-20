@@ -7,10 +7,10 @@ const recordSchema = new Schema({
     required: true,
   },
   date: {
-    type: Date,
+    type: String,
     min: '2000-01-01', 
     max: Date.now,
-    required: true
+    required: true,
   },
   amount: {
     type: Number,
