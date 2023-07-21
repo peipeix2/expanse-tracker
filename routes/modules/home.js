@@ -19,10 +19,8 @@ router.get('/', (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    console.log(req.body.category)
     const foundCategory = await Category.findOne({ name: req.body.category }).lean()
     const categoryId = foundCategory._id
-    console.log(categoryId)
     await Record.find({ categoryId })
       .lean()
       .then((records) => {
