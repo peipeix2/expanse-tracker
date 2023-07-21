@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
 const Record = require('./models/record')
@@ -18,6 +19,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndexes: true })
 
 
@@ -86,17 +88,19 @@ app.post('/records', async (req, res) => {
   }
 })
 
-
-
 app.get('/records/:id/edit', (req, res) => {
   const id = req.params.id
   return Record.findById(id)
     .lean()
-    .then((record) => res.render('edit', { record }))
+    .then((record) => {
+      record.formattedDate = new Date(record.date).toISOString().split('T')[0]
+      console.log(record.formattedDate)
+      res.render('edit', { record })
+    })
     .catch((err) => console.log(err))
 })
 
-app.post('/records/:id/edit', async (req, res) => {
+app.put('/records/:id', async (req, res) => {
   try{
     const id = req.params.id
     const categoryId = (await Category.findOne({ name: req.body.category }))._id
@@ -115,7 +119,7 @@ app.post('/records/:id/edit', async (req, res) => {
   }
 })
 
-app.post('/records/:id/delete', (req, res) => {
+app.delete('/records/:id', (req, res) => {
   const id = req.params.id
   return Record.findById(id)
     .then(record => record.remove())

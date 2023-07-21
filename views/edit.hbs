@@ -1,8 +1,8 @@
-<form action="/records/{{ record._id }}/edit" method="POST">
+<form action="/records/{{ record._id }}?_method=PUT" method="POST">
   <label for="name">名稱*:</label>
   <input type='text' placeholder="請輸入帳目名稱" name="name" value="{{ record.name }}">
   <label for="date">日期*:</label>
-  <input type='date' name="date" value="{{ record.date }}">
+  <input type='date' name="date" value="{{ record.formattedDate }}">
   <label for="category">類別*:</label>
   <select name="category" value="{{ record.category }}">
     <option value="" disabled selected hidden>Select</option>

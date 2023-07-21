@@ -27,7 +27,7 @@
   <li>
     <a href="/records/{{ this._id}}/edit">修改</a>
   </li>
-  <form action="/records/{{this._id}}/delete" method="POST">
+  <form action="/records/{{this._id}}?_method=DELETE" method="POST">
     <button type="submit">刪除</button>
   </form>
   {{/each}}
