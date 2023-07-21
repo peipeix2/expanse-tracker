@@ -1,4 +1,16 @@
-<a href="/records/new">新增支出</a>
+
+<form action="/" method="POST" id="filterForm">
+<select name="category" id="category" onchange="submitForm()">
+  <option value="" disabled selected hidden>類別</option>
+  <option value="家居物業">家居物業</option>
+  <option value="交通出行">交通出行</option>
+  <option value="休閒娛樂">休閒娛樂</option>
+  <option value="餐飲食品">餐飲食品</option>
+  <option value="其他">其他</option>
+</select>
+</form>
+
+<p>總金額：{{totalAmount}}</p>
 
 <ul>
   {{#each records}}
@@ -20,5 +32,11 @@
   </form>
   {{/each}}
 </ul>
+<a href="/records/new">新增支出</a>
+<a href="/">回到首頁</a>
 
-<p>總金額：{{totalAmount}}</p>
+<script>
+  function submitForm(){
+    document.getElementById('filterForm').submit()
+  }
+</script>

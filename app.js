@@ -40,10 +40,30 @@ app.get('/', (req, res) => {
     .then((records) => {
       records.forEach((record) => {
         totalAmount += record.amount
-      });
+      })
       res.render('index', { records, totalAmount })
     })
     .catch(error => console.error(error))
+})
+
+app.post('/', async (req, res) => {
+  try{
+    console.log(req.body.category)
+    const foundCategory = await Category.findOne({ name: req.body.category }).lean()
+    const categoryId = foundCategory._id
+    console.log(categoryId)
+    await Record.find({ categoryId })
+      .lean()
+      .then((records) => {
+        let totalAmount = 0
+        records.forEach((record) => {
+          totalAmount += record.amount
+        })
+        res.render('index', { records, totalAmount })
+      })
+  } catch (error) {
+    console.log(error)
+  }
 })
 
 app.get('/records/new', (req, res) => {
@@ -65,6 +85,8 @@ app.post('/records', async (req, res) => {
     console.log(error)
   }
 })
+
+
 
 app.get('/records/:id/edit', (req, res) => {
   const id = req.params.id
