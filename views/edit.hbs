@@ -1,18 +1,57 @@
+<div class="row mt-3 mb-5">
+  <div class="col-2">
+    <p>*必填欄位</p>
+  </div>
+  <div class="col-8">
+    <h3 class="text-center">請修改你的支出</h3>
+  </div>
+</div>
+
 <form action="/records/{{ record._id }}?_method=PUT" method="POST">
-  <label for="name">名稱*:</label>
-  <input type='text' placeholder="請輸入帳目名稱" name="name" value="{{ record.name }}">
-  <label for="date">日期*:</label>
-  <input type='date' name="date" value="{{ record.formattedDate }}">
-  <label for="category">類別*:</label>
-  <select name="category" value="{{ record.category }}">
-    <option value="" disabled selected hidden>Select</option>
-    <option value="家居物業">家居物業</option>
-    <option value="交通出行">交通出行</option>
-    <option value="休閒娛樂">休閒娛樂</option>
-    <option value="餐飲食品">餐飲食品</option>
-    <option value="其他">其他</option>
-  </select>
-  <label for="amount">金額*:</label>
-  <input type='number' placeholder="請輸入帳目金額" name="amount" min='0' value="{{ record.amount }}">
-  <button type="submit">送出</button>
+<div class="row mb-5">
+  <div class="col-2">
+    <label for="name" style="font-size: 18px">名稱*:</label>
+  </div>
+  <div class="col-8 d-flex justify-content-center">
+    <input type='text' placeholder="請輸入帳目名稱" name="name" style="font-size: 18px; height:40px; width:280px;" value="{{ record.name }}">
+  </div>
+  </div>
+  <div class="row mb-5">
+    <div class="col-2">
+      <label for="date" style="font-size: 18px">日期*:</label>
+    </div>
+    <div class="col-8 d-flex justify-content-center">
+      <input type='date' name="date" style="font-size: 18px; height:40px; width:280px;" value="{{ record.formattedDate }}">
+    </div>
+  </div>
+  <div class="row mb-5">
+    <div class="col-2">
+      <label for="category" style="font-size: 18px">類別*:</label>
+    </div>
+    <div class="col-8 d-flex justify-content-center">
+      <select name="category" style="font-size: 18px; height:40px; width:280px;">
+        <option value="" disabled selected hidden>Select</option>
+        <option value="家居物業">家居物業</option>
+        <option value="交通出行">交通出行</option>
+        <option value="休閒娛樂">休閒娛樂</option>
+        <option value="餐飲食品">餐飲食品</option>
+        <option value="其他">其他</option>
+      </select>
+    </div>
+  </div>
+  <div class="row mb-5">
+    <div class="col-2">
+      <label for="amount" style="font-size: 18px">金額*:</label>
+    </div>
+    <div class="col-8 d-flex justify-content-center">
+      <input type='number' placeholder="請輸入帳目金額" name="amount" min='0' style="font-size: 18px; height:40px; width:280px;" value="{{ record.amount }}">
+    </div>
+  </div>
+  <div class="row mb-5">
+    <div class="col-2"></div>
+    <div class="col-8 d-flex justify-content-center">
+  <button type="submit" class="btn btn-light"
+      style="font-size: 18px; height: 40px; width: 280px; border-color:gray;">送出</button>
+      </div>
+      </div>
 </form>
