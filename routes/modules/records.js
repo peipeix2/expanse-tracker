@@ -37,7 +37,6 @@ router.get('/:id/edit', (req, res) => {
     .lean()
     .then((record) => {
       record.formattedDate = new Date(record.date).toISOString().split('T')[0]
-      console.log(record.formattedDate)
       res.render('edit', { record })
     })
     .catch((err) => console.log(err))

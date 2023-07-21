@@ -1,12 +1,9 @@
-const mongoose = require('mongoose')
 const Record = require('../record')
 const Category = require('../category')
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
-
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 const CATEGORY_IMAGE = {
   家居物業: "fa-solid fa-house",
@@ -16,11 +13,8 @@ const CATEGORY_IMAGE = {
   其他: "fa-solid fa-pen"
 }
 
+const db = require('../../config/mongoose')
 
-const db = mongoose.connection
-db.on('error', () => {
-  console.log('mongodb error!')
-})
 
 db.once('open', async () => {
   console.log('mongodb connected!')
