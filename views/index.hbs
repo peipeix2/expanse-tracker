@@ -1,38 +1,60 @@
-<form action="/" method="POST" id="filterForm">
-<select name="category" id="category" onchange="submitForm()">
-  <option value="" disabled selected hidden>類別</option>
-  <option value="家居物業">家居物業</option>
-  <option value="交通出行">交通出行</option>
-  <option value="休閒娛樂">休閒娛樂</option>
-  <option value="餐飲食品">餐飲食品</option>
-  <option value="其他">其他</option>
-</select>
-</form>
-
-<p>總金額：{{totalAmount}}</p>
-
-<ul>
-  {{#each records}}
-  <i class="{{this.categoryImage}}"></i>
-  <li>
-    {{this.name}}
-  </li>
-  <li>
-    {{this.date}}
-  </li>
-  <li>
-    {{this.amount}}
-  </li>
-  <li>
-    <a href="/records/{{ this._id}}/edit">修改</a>
-  </li>
-  <form action="/records/{{this._id}}?_method=DELETE" method="POST">
-    <button type="submit">刪除</button>
+<div class="col-9">
+  <form action="/" method="POST" id="filterForm">
+    <select class="form-select" name="category" id="category" onchange="submitForm()" aria-label="Default select example">
+      <option value="" disabled selected hidden>類別</option>
+      <option value="家居物業">家居物業</option>
+      <option value="交通出行">交通出行</option>
+      <option value="休閒娛樂">休閒娛樂</option>
+      <option value="餐飲食品">餐飲食品</option>
+      <option value="其他">其他</option>
+    </select>
   </form>
+</div>
+
+<div class="col-9 mt-5">
+  <div class="d-flex justify-content-around">
+    <p>總金額：</p>
+    <p class="fw-bold" style="font-size: 100px; color:coral">{{totalAmount}}</p>
+  </div>
+</div>
+
+
+<ul class="list-group mb-5">
+  {{#each records}}
+  <div class="row">
+    <div class="col-9">
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-1 my-auto">
+            <i class="{{this.categoryImage}}" style="font-size: 30px; color:rgb(0, 219, 219);"></i>
+          </div>
+          <div class="col-auto my-auto">
+            <h4 class="my-auto">{{this.name}}</h4>
+            <p class="my-auto text-secondary" style="font-size:10px">{{this.date}}</p>
+          </div>
+      
+          <div class="col-auto ms-auto my-auto">
+            <h5>{{this.amount}}</h5>
+          </div>
+      </li>
+    </div>
+  
+    <div class="col-3 d-flex align-items-center">
+      <a href="/records/{{ this._id}}/edit" class="btn btn-success btn-sm me-2">修改</a>
+      <form action="/records/{{this._id}}?_method=DELETE" method="POST">
+        <button type="submit" class="btn btn-danger btn-sm">刪除</button>
+      </form>
+    </div>
+  </div>
+    
+  
   {{/each}}
 </ul>
-<a href="/records/new">新增支出</a>
-<a href="/">回到首頁</a>
+
+<div class="d-flex align-items-center mb-5">
+<a href="/records/new" class="btn btn-primary btn-lg mx-auto" style="background-color:coral; border-color:coral">新增支出</a>
+</div>
+
 
 <script>
   function submitForm(){
