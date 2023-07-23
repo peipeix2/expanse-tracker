@@ -36,14 +36,42 @@ router.post('/', async (req, res) => {
 router.get('/:id/edit', (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
-  return Record.findOne({_id, userId})
+  Category.find()
     .lean()
-    .then((record) => {
-      record.formattedDate = new Date(record.date).toISOString().split('T')[0]
-      res.render('edit', { record })
+    .then(categories => {
+      Record.findOne({ _id, userId })
+        .populate("categoryId")
+        .lean()
+        .then(record => {
+          categories.map((category, index) => {
+            if (String(category._id) === String(record.categoryId)) {
+              category.selected = true
+            } else {
+              category.selected = false
+            }
+          })
+          record.formattedDate = new Date(record.date).toISOString().split('T')[0]
+          res.render("edit", { categories, record })
+        })
+        .catch(error => console.log(error))
     })
-    .catch((err) => console.log(err))
+    .catch(error => console.log(error))
 })
+
+// router.get('/:id/edit', (req, res) => {
+//   const userId = req.user._id
+//   const _id = req.params.id
+//   return Category.find()
+//     .lean()
+//     .then(category => )
+//   Record.findOne({_id, userId})
+//     .lean()
+//     .then((record) => {
+//       record.formattedDate = new Date(record.date).toISOString().split('T')[0]
+//       res.render('edit', { record })
+//     })
+//     .catch((err) => console.log(err))
+// })
 
 router.put('/:id', async (req, res) => {
   try {
