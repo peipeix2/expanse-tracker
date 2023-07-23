@@ -1,5 +1,7 @@
+const bcrypt = require('bcryptjs')
 const Record = require('../record')
 const Category = require('../category')
+const User = require('../user')
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -25,35 +27,40 @@ db.once('open', async () => {
         date: '2019-4-23',
         amount: 60,
         categoryId: (await Category.findOne({ name: '餐飲食品' }))._id,
-        categoryImage: CATEGORY_IMAGE.餐飲食品
+        categoryImage: CATEGORY_IMAGE.餐飲食品,
+        userId: (await User.findOne({ name: '廣志' }))._id
       },
       {
         name: '晚餐',
         date: '2019-4-23',
         amount: 60,
         categoryId: (await Category.findOne({ name: '餐飲食品' }))._id,
-        categoryImage: CATEGORY_IMAGE.餐飲食品
+        categoryImage: CATEGORY_IMAGE.餐飲食品,
+        userId: (await User.findOne({ name: '廣志' }))._id
       },
       {
         name: '捷運',
         date: '2019-4-23',
         amount: 120,
         categoryId: (await Category.findOne({ name: '交通出行' }))._id,
-        categoryImage: CATEGORY_IMAGE.交通出行
+        categoryImage: CATEGORY_IMAGE.交通出行,
+        userId: (await User.findOne({ name: '廣志' }))._id
       },
       {
         name: '電影：驚奇隊長',
         date: '2019-4-23',
         amount: 220,
         categoryId: (await Category.findOne({ name: '休閒娛樂' }))._id,
-        categoryImage: CATEGORY_IMAGE.休閒娛樂
+        categoryImage: CATEGORY_IMAGE.休閒娛樂,
+        userId: (await User.findOne({ name: '小新' }))._id
       },
       {
         name: '租金',
         date: '2015-4-01',
         amount: 25000,
         categoryId: (await Category.findOne({ name: '家居物業' }))._id,
-        categoryImage: CATEGORY_IMAGE.家居物業
+        categoryImage: CATEGORY_IMAGE.家居物業,
+        userId: (await User.findOne({ name: '廣志' }))._id
       }
     ]
     const categories = Category.find()
