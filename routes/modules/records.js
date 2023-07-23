@@ -58,21 +58,6 @@ router.get('/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// router.get('/:id/edit', (req, res) => {
-//   const userId = req.user._id
-//   const _id = req.params.id
-//   return Category.find()
-//     .lean()
-//     .then(category => )
-//   Record.findOne({_id, userId})
-//     .lean()
-//     .then((record) => {
-//       record.formattedDate = new Date(record.date).toISOString().split('T')[0]
-//       res.render('edit', { record })
-//     })
-//     .catch((err) => console.log(err))
-// })
-
 router.put('/:id', async (req, res) => {
   try {
     const categoryId = (await Category.findOne({ name: req.body.category }))._id
