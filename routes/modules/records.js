@@ -17,13 +17,15 @@ router.get('/new', (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
+    const userId = req.user._id
     const categoryId = (await Category.findOne({ name: req.body.category }))._id
     await Record.create({
       name: req.body.name,
       date: req.body.date,
       amount: req.body.amount,
       categoryId: categoryId,
-      categoryImage: CATEGORY_IMAGE[req.body.category]
+      categoryImage: CATEGORY_IMAGE[req.body.category],
+      userId: userId
     })
     res.redirect('/')
   } catch (error) {
@@ -32,8 +34,9 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Record.findOne({_id, userId})
     .lean()
     .then((record) => {
       record.formattedDate = new Date(record.date).toISOString().split('T')[0]
@@ -44,9 +47,10 @@ router.get('/:id/edit', (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
-    const id = req.params.id
     const categoryId = (await Category.findOne({ name: req.body.category }))._id
-    await Record.findById(id)
+    const userId = req.user._id
+    const _id = req.params.id
+    await Record.findOne({_id, userId})
       .then((record) => {
         record.name = req.body.name
         record.date = req.body.date
@@ -62,8 +66,9 @@ router.put('/:id', async (req, res) => {
 })
 
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Record.findOne({_id, userId})
     .then(record => record.remove())
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))

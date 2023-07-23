@@ -5,8 +5,9 @@ const Record = require('../../models/record')
 const Category = require('../../models/category')
 
 router.get('/', (req, res) => {
+  const userId = req.user._id
   let totalAmount = 0
-  Record.find()
+  Record.find({userId})
     .lean()
     .then((records) => {
       records.forEach((record) => {
@@ -19,9 +20,10 @@ router.get('/', (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
+    const userId = req.user._id
     const foundCategory = await Category.findOne({ name: req.body.category }).lean()
     const categoryId = foundCategory._id
-    await Record.find({ categoryId })
+    await Record.find({ userId, categoryId })
       .lean()
       .then((records) => {
         let totalAmount = 0
