@@ -60,7 +60,7 @@ router.get('/:id/edit', (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
-    const categoryId = (await Category.findOne({ name: req.body.category }))._id
+    const categoryName = (await Category.findOne({ _id: req.body.category })).name
     const userId = req.user._id
     const _id = req.params.id
     await Record.findOne({_id, userId})
@@ -68,8 +68,8 @@ router.put('/:id', async (req, res) => {
         record.name = req.body.name
         record.date = req.body.date
         record.amount = req.body.amount
-        record.categoryId = categoryId
-        record.categoryImage = CATEGORY_IMAGE[req.body.category]
+        record.categoryId = req.body.category
+        record.categoryImage = CATEGORY_IMAGE[categoryName]
         return record.save()
       })
       .then(() => res.redirect('/'))
